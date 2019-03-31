@@ -1,10 +1,10 @@
 ## 网站设置
 # 标题
-title: Blog
+title: Lin Jin's Blog
 # 选项卡标题
 SEOTitle: KinLin | KinLin‘s   Blog
 # 首页背景图片
-header-img: img/theworld.jpg
+header-img: /img/theworld.jpg
 # 邮箱设置
 email: jlscut@gmail.com
 # 网站介绍
