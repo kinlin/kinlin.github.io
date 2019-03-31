@@ -1,2 +1,7 @@
-## Welcome to GitHub Pages
-Write down what you learn
+###README
+
+Keep Write
+Keep Summarize
+Keep Going
+
+Do Write Thing and Loop Again and Again.
