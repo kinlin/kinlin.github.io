@@ -22,9 +22,9 @@ tags:
 
 - 在`.vimrc`文件中添加下面函数。之后每次在阅读代码的同时就能直接按`F12`更新代码索引了
 
-{{{
+```
 #!/bin/bash
-"reset cscope out file
+
 map <F12> : call ReConnectCscope()<cr>
 func! ReConnectCscope()
 exec "cs kill 0"
@@ -32,7 +32,7 @@ exec "!./generate.sh"
 exec "set csprg=~/cscope.sh"
 exec "cs add cscope.out"
 endfunc
-}}}
+```
 
 - 另附上面会用到的`generate.sh`, 之所以使用generate.sh, 是为了自行过滤一些文件。
 
