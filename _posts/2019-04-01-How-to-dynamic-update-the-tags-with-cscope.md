@@ -22,17 +22,16 @@ tags:
 
 - 在`.vimrc`文件中添加下面函数。之后每次在阅读代码的同时就能直接按`F12`更新代码索引了
 
-```shell
-#!/bin/bash
-"reset cscope out file
-map <F12> : call ReConnectCscope()<cr>
-func! ReConnectCscope()
-exec "cs kill 0"
-exec "!./generate.sh"
-exec "set csprg=~/cscope.sh"
-exec "cs add cscope.out"
-endfunc
-```
+    #!/bin/bash
+    "reset cscope out file
+    map <F12> : call ReConnectCscope()<cr>
+    func! ReConnectCscope()
+    exec "cs kill 0"
+    exec "!./generate.sh"
+    exec "set csprg=~/cscope.sh"
+    exec "cs add cscope.out"
+    endfunc
+
 
 - 另附上面会用到的`generate.sh`, 之所以使用generate.sh, 是为了自行过滤一些文件。
 
@@ -59,7 +58,7 @@ date;
 
 - **我们完全可以定义一套配置，通过快捷键生效！**
 
-```
+```vimrc
 示例如下：
 
 "Do this First : 首先需要安装plug脚本
@@ -115,7 +114,7 @@ cscope -C "$@"
 
 - 然后修改vimrc如下
 
-```
+```vimrc
 " cscope settings
 if has("cscope")
 "   set csprg=/usr/bin/cscope
