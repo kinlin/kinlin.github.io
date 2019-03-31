@@ -10,7 +10,7 @@ tags:
     - 技能
 ---
 
-###前言
+### 前言
 
 对于使用source insight的人而言，并不存在这个问题，因为source insight在文件变动时自动就会处理索引的更新。但是对于使用vim+cscope的同学而言，就没那么方便了。
 
@@ -18,8 +18,10 @@ tags:
 违背了我们用工具提高看代码效率的初衷。
 
 
-###如何修改
+### 如何修改
+
 - 在`.vimrc`文件中添加下面函数。之后每次在阅读代码的同时就能直接按`F12`更新代码索引了
+
 ```shell
 "reset cscope out file
 map <F12> : call ReConnectCscope()<cr>
@@ -29,9 +31,10 @@ exec "!./generate.sh"
 exec "set csprg=~/cscope.sh"
 exec "cs add cscope.out"
 endfunc
-
 ```
-    - 另附上面会用到的`generate.sh`, 之所以使用generate.sh, 是为了自行过滤一些文件。
+
+- 另附上面会用到的`generate.sh`, 之所以使用generate.sh, 是为了自行过滤一些文件。
+
 ```shell
 #!/bin/bash
 date;
@@ -47,7 +50,8 @@ date;
 
 ```
 
-###使用vimrc文件定义快捷键执行更酷炫的操作
+### 使用vimrc文件定义快捷键执行更酷炫的操作
+
 - 作为一名工程师，经常会需要`ssh`远程连接到其他机器，这种情况下可能会有其他用户也在使用vim看代码，这时候如果我们轻易改变vim的配置，那么`.vimrc`很快就会被改得面目全非。所以问题来了： **能不能定义一套配置，只有自己使用，其他人仍然使用默认的配置呢？**
 
 > 当然有！
@@ -93,13 +97,14 @@ endfunc
 ```
 
 
-###如何使得cscope查找字符时不区分大小写
+### 如何使得cscope查找字符时不区分大小写
 
 通常情况下，我们查找函数定义时，需要提供精确的名字，但是我们很难记住一个字符串同时还记住它第几个字符是大小写。
 
 cscope本身就具有忽略大小写的选项，我们需要打开即可。
 
 - 首先我们在home目录`~`下创建一个脚本`cscope.sh`,并赋予执行权限
+
 ```shell
 #/!bin/sh
 
@@ -107,6 +112,7 @@ cscope -C "$@"
 ```
 
 - 然后修改vimrc如下
+
 ```shell
 " cscope settings
 if has("cscope")
