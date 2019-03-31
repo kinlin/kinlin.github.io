@@ -23,6 +23,7 @@ tags:
 - 在`.vimrc`文件中添加下面函数。之后每次在阅读代码的同时就能直接按`F12`更新代码索引了
 
 ```shell
+#!/bin/bash
 "reset cscope out file
 map <F12> : call ReConnectCscope()<cr>
 func! ReConnectCscope()
@@ -57,7 +58,8 @@ date;
 > 当然有！
 
 - **我们完全可以定义一套配置，通过快捷键生效！**
-```shell
+
+```
 示例如下：
 
 "Do this First : 首先需要安装plug脚本
@@ -105,7 +107,7 @@ cscope本身就具有忽略大小写的选项，我们需要打开即可。
 
 - 首先我们在home目录`~`下创建一个脚本`cscope.sh`,并赋予执行权限
 
-```shell
+```
 #/!bin/sh
 
 cscope -C "$@"
@@ -113,7 +115,7 @@ cscope -C "$@"
 
 - 然后修改vimrc如下
 
-```shell
+```
 " cscope settings
 if has("cscope")
 "   set csprg=/usr/bin/cscope
