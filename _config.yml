@@ -1,6 +1,6 @@
 ## 网站设置
 # 标题
-title: Lin Jin's Blog
+title: KinLin's Blog
 # 选项卡标题
 SEOTitle: KinLin | KinLin‘s   Blog
 # 首页背景图片
@@ -65,18 +65,18 @@ kramdown:
 ## Gitalk
 gitalk:
   #是否开启Gitalk评论
-  enable: false
+  enable: true
   #生成的clientID
-  #clientID:
+  clientID: 3b37dc28016e67103345
   #生成的clientSecret
-  #clientSecret:
+  clientSecret: a2a01fa75e11ef787788bcbbfcade4993ca78afc
   #仓库名称
-  #repo:
+  repo: kinlin.github.io
   #github用户名
-  #owner:
-  #  admin:
+  owner: kinlin
+  admin: kinlin
   #是否启用类似FB的阴影遮罩
-  #  distractionFreeMode: true
+  distractionFreeMode: true
 
 ## 统计
 # Baidu Analytics
