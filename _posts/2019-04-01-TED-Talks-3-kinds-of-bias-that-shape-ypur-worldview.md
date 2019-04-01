@@ -12,10 +12,10 @@ tags:
 
 ### TED资源
 * *演讲视频*
-![TedTalks](https://pc.tedcdn.com/talk/stream/2018X/Blank/JMarshallShepherd_2018X-1500k.mp4)
+    - https://pc.tedcdn.com/talk/stream/2018X/Blank/JMarshallShepherd_2018X-1500k.mp4
 
 * *字幕文本*
-![ted2srt](https://ted2srt.org/talks/j_marshall_shepherd_3_kinds_bias_that_shape_your_worldview)
+    - https://ted2srt.org/talks/j_marshall_shepherd_3_kinds_bias_that_shape_your_worldview
 
 
 ### 前言
