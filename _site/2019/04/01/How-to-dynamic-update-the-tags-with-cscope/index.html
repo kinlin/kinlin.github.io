@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="I guess it comes down to a simple choice:get busy living or get busy dying.">
+    <meta name="keywords"  content="camera, c++, dev">
+    <meta name="theme-color" content="#000000">
+    
+    <title>使用vim+cscope如何动态更新代码索引 - KinLin | KinLin‘s   Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/2019/04/01/How-to-dynamic-update-the-tags-with-cscope/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">KinLin's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">关键字</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/theworld.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/theworld.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#技能" title="技能">技能</a>
+                        
+                    </div>
+                    <h1>使用vim+cscope如何动态更新代码索引</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by LinJin on April 1, 2019</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h3 id="section">前言</h3>
+
+<p>对于使用source insight的人而言，并不存在这个问题，因为source insight在文件变动时自动就会处理索引的更新。但是对于使用vim+cscope的同学而言，就没那么方便了。</p>
+
+<p>试想一下，你正在修改代码，然后cscope找函数，发现由于修改更新了，找到的位置偏移了好几百行。。。这时候，退出再重新进入编辑。效率就极大降低了，<br />
+违背了我们用工具提高看代码效率的初衷。</p>
+
+<h3 id="section-1">如何修改</h3>
+
+<ul>
+  <li>在<code class="highlighter-rouge">.vimrc</code>文件中添加下面函数。之后每次在阅读代码的同时就能直接按<code class="highlighter-rouge">F12</code>更新代码索引了</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+map &lt;F12&gt; : call ReConnectCscope<span class="o">()</span>&lt;cr&gt;
+func! ReConnectCscope<span class="o">()</span>
+<span class="nb">exec</span> <span class="s2">"cs kill 0"</span>
+<span class="nb">exec</span> <span class="s2">"!./generate.sh"</span>
+<span class="nb">exec</span> <span class="s2">"set csprg=~/cscope.sh"</span>
+<span class="nb">exec</span> <span class="s2">"cs add cscope.out"</span>
+endfunc
+</code></pre>
+</div>
+
+<ul>
+  <li>另附上面会用到的<code class="highlighter-rouge">generate.sh</code>, 之所以使用generate.sh, 是为了自行过滤一些文件。</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+date;
+<span class="nb">echo</span> <span class="s2">"ctags done......"</span>
+find -L . -name  <span class="s2">"*.h"</span> -o -name <span class="s2">"*.c"</span> -o -name <span class="s2">"*.cc"</span> -o -name <span class="s2">"*.cpp"</span> -o -name <span class="s2">"*.py"</span> &gt; cscope.files;
+find -L . -name <span class="s2">"*.pl"</span> &gt;&gt;cscope.files
+
+date;
+cscope -RCbq -i cscope.files;
+ctags -R -L cscope.files;
+<span class="nb">echo</span> <span class="s2">"cscope done......"</span>
+date;
+
+</code></pre>
+</div>
+
+<h3 id="vimrc">使用vimrc文件定义快捷键执行更酷炫的操作</h3>
+
+<ul>
+  <li>作为一名工程师，经常会需要<code class="highlighter-rouge">ssh</code>远程连接到其他机器，这种情况下可能会有其他用户也在使用vim看代码，这时候如果我们轻易改变vim的配置，那么<code class="highlighter-rouge">.vimrc</code>很快就会被改得面目全非。所以问题来了： <strong>能不能定义一套配置，只有自己使用，其他人仍然使用默认的配置呢？</strong></li>
+</ul>
+
+<blockquote>
+  <p>当然有！</p>
+</blockquote>
+
+<ul>
+  <li><strong>我们完全可以定义一套配置，通过快捷键生效！</strong></li>
+</ul>
+
+<pre><code class="language-vimrc">示例如下：
+
+"Do this First : 首先需要安装plug脚本
+"curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+"把自己常用的一些脚本可以安装好
+call plug#begin('~/.vim/plugged')
+Plug 'vim-scripts/mru.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tomasr/molokai'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'lokaltog/vim-powerline'
+Plug 't9md/vim-quickhl'
+call plug#end()
+
+"Magic time.执行F12快捷键后，我们可以配置色彩方案，配置插件设置。
+"一切都变得不一样，专属于你自己的一套配置。所有操作习惯都可以继续。多么美好！
+"some personal config
+map &lt;F12&gt; : call PersonalConfigs()&lt;cr&gt;
+func! PersonalConfigs()
+exec "colorscheme molokai"
+exec "set laststatus=2"
+exec "set fillchars+=stl:\\ ,stlnc:\\"
+exec "set encoding=utf-8"
+exec "let g:cpp_class_scope_highlight = 1"
+exec "let g:cpp_member_variable_highlight = 1"
+exec "let g:cpp_experimental_template_highlight = 1"
+exec "let g:cpp_concepts_highlight = 1"
+exec "let g:Powerline_symbols = 'compatible'"
+"exec "nmap &lt;Space&gt;m &lt;Plug&gt;(quickhl-manual-this)"
+"exec "xmap &lt;Space&gt;m &lt;Plug&gt;(quickhl-manual-this)"
+"exec "nmap &lt;Space&gt;M &lt;Plug&gt;(quickhl-manual-reset)"
+"exec "xmap &lt;Space&gt;M &lt;Plug&gt;(quickhl-manual-reset)"
+exec "set incsearch"
+endfunc
+</code></pre>
+
+<h3 id="cscope">如何使得cscope查找字符时不区分大小写</h3>
+
+<p>通常情况下，我们查找函数定义时，需要提供精确的名字，但是我们很难记住一个字符串同时还记住它第几个字符是大小写。</p>
+
+<p>cscope本身就具有忽略大小写的选项，我们需要打开即可。</p>
+
+<ul>
+  <li>首先我们在home目录<code class="highlighter-rouge">~</code>下创建一个脚本<code class="highlighter-rouge">cscope.sh</code>,并赋予执行权限</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#/!bin/sh
+
+cscope -C "$@"
+</code></pre>
+</div>
+
+<ul>
+  <li>然后修改vimrc如下</li>
+</ul>
+
+<pre><code class="language-vimrc">" cscope settings
+if has("cscope")
+"   set csprg=/usr/bin/cscope
+"主要修改就是这句，将调用/usr/bin下的cscope改为调用cscope.sh脚本
+    set csprg=~/cscope.sh
+    set csto=0
+    set cst
+    set nocsverb
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+        " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+endif
+
+</code></pre>
+
+<ul>
+  <li>现在可以试着搜索一个字符串，完全不用顾及大小写的问题，舒服多了。</li>
+</ul>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/03/31/manage-your-energy/" data-toggle="tooltip" data-placement="top" title="时间精力管理">
+                        Previous<br>
+                        <span>时间精力管理</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/04/01/TED-Talks-3-kinds-of-bias-that-shape-ypur-worldview/" data-toggle="tooltip" data-placement="top" title="塑造你世界观的三种原理">
+                        Next<br>
+                        <span>塑造你世界观的三种原理</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- 引入Gitalk评论插件  -->
+                <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+                <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+                <div id="gitalk-container"></div>
+                <script type="text/javascript">
+                    var gitalk = new Gitalk({
+                    clientID: '3b37dc28016e67103345',
+                    clientSecret: 'a2a01fa75e11ef787788bcbbfcade4993ca78afc',
+                    repo: 'kinlin.github.io',
+                    owner: 'kinlin',
+                    admin: ['kinlin'],
+                    distractionFreeMode: true,
+                    id: window.location.pathname,
+                    });
+                    gitalk.render('gitalk-container');
+                </script>
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">关键字</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#读书笔记" title="读书笔记" rel="1">
+                                    读书笔记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技能" title="技能" rel="1">
+                                    技能
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#TED" title="TED" rel="1">
+                                    TED
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href=""></a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; KinLin's Blog 2019
+                    <br>
+                    Theme on <a href="">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=&repo=.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/heart_love.ico" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="I guess it comes down to a simple choice:get busy living or get busy dying.">
+    <meta name="keywords"  content="camera, c++, dev">
+    <meta name="theme-color" content="#000000">
+    
+    <title>时间精力管理 - KinLin | KinLin‘s   Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/2019/03/31/manage-your-energy/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">KinLin's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">关键字</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/theworld.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/theworld.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#读书笔记" title="读书笔记">读书笔记</a>
+                        
+                    </div>
+                    <h1>时间精力管理</h1>
+                    
+                    
+                    <h2 class="subheading">为什么精英都是时间控--读书笔记</h2>
+                    
+                    <span class="meta">Posted by LinJin on March 31, 2019</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h3 id="section">前言</h3>
+
+<p>周末看了本书，从这本书的封面设计来说，特别low，跟成千上万论斤称的鸡汤书，难以想象我竟然会看完。但是实际上，花了一个中午看完，还是有不少收获。</p>
+
+<p>作者作为一名医生，更能深刻的理解人体的运行规律，作息和运动以及节律的生活节奏，对于专注力的恢复与使用，非常有启发。不过书确实还是灌水了，很少的干货竟然就能撑起一本小书。</p>
+
+<p>加上最近异常火爆的程序员抵制加班热潮(<strong>996.icu项目</strong>)，看完也多了一些思考。<br />
+每个程序员都经历过加班，但其实更可怕的是，<strong>大部分的加班对于增加效率/工作量的初衷是完全无效的</strong>，看完这本书就能理解，如果使用<strong>专注力x时间 = 工作效率</strong> 来衡量，那么大部分的加班效率并不高，反而会拖累整体的工作量。</p>
+
+<h3 id="section-1">封面</h3>
+<p><img src="/img/books/manage-your-energy/bookcover.jpg" alt="coverimage" /></p>
+
+<h3 id="section-2">什么是大脑的黄金时间</h3>
+<p>我们人类的大脑在早上起床后的两三个小时内最清醒也不会感到疲惫，而且经过一个晚上的休息处于一个非常有条理的状态，所以从早晨到上午的这段时间是一天中头脑技能最好的时间段，这段时间被称为 <strong>大脑的黄金时间</strong> ，特别适合做理性强的工作，比如创作理论性文章，学习外语以及需要高度专注的工作。</p>
+
+<p>时间管理的基础就在于此。<strong>如果我们能在头脑技能最高的时间段做最适合的工作，可以将工作效率提高到原来的两倍甚至更高。</strong></p>
+
+<p>虽说每个人都有同样的24小时，但是因为<strong>时间的价值不是均等的</strong>，如果不能充分利用好大脑的黄金时间，每个人能达到的高度将完全不同。精英每年做好本职工作之余还有精力健身、旅游、出书，但普通人做好日常工作就已经耗尽全部的精力。</p>
+
+<h3 id="section-3">时间的拼图理论</h3>
+<p>我们每天所做的日常工作大体上可以分为两种，<strong>一种是需要高度专注力的工作，另一种则不需要太强的专注力</strong>, 在什么样的时间段用来做专注性的工作，会决定你一起一定的工作量和完成质量。</p>
+
+<p><strong>与其追求自由控制专注力，反而不如在专注力高的时间段做需要高度专注力的工作</strong>，换句话说就是在什么样的时间段给自己安排什么样的工作，而不是在意一天之中最疲惫的时候，非要强迫自己打起精神来学习，给自己充电，那其实很作用很有限，因为<strong>提高专注力也是有极限的</strong>。</p>
+
+<p>不如把我们每一天的工作想象成一个拼图游戏，我们只需要在自己专注力高的时候，把专注性的工作尽量的嵌入而在专注力低的时候就嵌入非专注性的工作在合适的时间安排合适的工作，工作便可以高效率高质量的完成，还可以节省出很多时间用于自己的兴趣爱好或者学习娱乐，这就是<strong>时间的拼图理论</strong>。<br />
+<img src="/img/books/manage-your-energy/focus_time_1.jpg" alt="focus_time_1" /></p>
+
+<h3 id="section-4">从一维时间管理术向二维时间管理术过渡</h3>
+
+<p>通常我们认为时间是一维的时间，就像一条直线向一个方向不停的流，现有的很多时间管理，所有的思想也是基于这个一维的观点，我们可以把无意义的时间节约出来，把这无意义的时间去做有意义的事情，本质上是一维时间管理术的基本思想就是时间置换。从这个角度讲，我们的时间管理术永远无法突破一天只有24个小时的壁垒。</p>
+
+<p>但是如果我们统计工作质量。 或者我们更关注一天的有效的工作时间。专注力或者工作效率乘以时间等于工作量。如果我们能够想办法提高自己的专注力，就可以提高工作效率，在相同时间内就可以轻松将工作量提高两倍。或者三倍，这正是二维时间管理术的厉害之处。</p>
+
+<p><strong>我们更应该关注时间x专注力的面积，而不是一味的将专注力提高。</strong> 提高专注力是一件非常难的事情，如果把专注力从100提升到120确实很难，但是要想把因疲劳下降的专注力从70提升到90还是可以轻松办到的，为什么呢？因为我们只要在适当时机加入休息，放松的时间就可以让专注力得到恢复工作一段时间，休息一段时间，再工作一段时间再休息一下，把握好工作的节奏，在感到疲劳之前适当休息是非常重要的原则。</p>
+
+<ul>
+  <li><strong>如何有效提高专注力？</strong>
+    <ul>
+      <li><strong>提高专注力的特效药是睡眠</strong></li>
+      <li><strong>完全重启专注力的秘诀是什么—运动</strong></li>
+      <li><strong>运动</strong>
+        <ul>
+          <li><strong>有氧运动</strong>对头脑非常好，在进行有氧运动的时候头脑会分泌一种叫<strong>BDNF脑源性神经营养因子</strong>的物质，它对脑神经的生长发育和正常运转起着至关重要的作用，另外头脑还会分泌一种叫做多巴胺的神经递多巴胺能够提高人的性质，使人产生幸福质。<br />
+  * <strong>重要原则: 不管发生什么都不要压缩睡眠时间来提升工作效率。</strong><br />
+<img src="/img/books/manage-your-energy/focus_time_2.jpg" alt="focus_time_2" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="section-5">掌握美国式的工作效率</h3>
+<p>当我们明白，我需要在专注力高的时候完成，需要有高专注力才能完成的工作的时候，现在<strong>下一步挑战的是以前需要在一个小时内完成的工作，看能否在50分钟内完成或者进一步缩短到45分钟</strong>，这种想法反复下功夫就能更高效率，简单来说就是提高工作效率，缩短工作时间高速度，高质量的把工作完成</p>
+
+<p>要想提高工作效率，有意识的提高自己的专注力是基础，同时还要结合工作方法的创新，删减不必要的工作等一般的工作技巧。</p>
+
+<h3 id="section-6">要花时间进行自我投资</h3>
+<p><strong>那些让自己更忙碌的时间管理书可以废止了!</strong><br />
+<strong>那些把通过学习时间管理术创造出来的自由时间，又用来工作的人们，可能是最差劲的时间管理方法了。</strong><br />
+如果人们把时间管理术创造出来的自由时间又用来工作，继续增加自己的工作时间。那最后的结果就是人的一天的什么事情都不用做了，全部是用来工作，这样一来人哪还有时间来喘气呢，想想这样的生活是会让人感到压抑的。<br />
+<strong>时间管理术是应该把人从忙碌中解放出来的方法，把工作限定在一个相对固定的时间范围内，在规定的时间内尽量增加工作量，提高工作的质量，而不是一直工作。</strong><br />
+<img src="/img/books/manage-your-energy/focus_time_3.jpg" alt="focus_time_3" /></p>
+
+<h3 id="section-7">为了快乐而使用时间</h3>
+<p>美国人5:00下班之后做些什么呢？<br />
+对于美国人而言，5:00之前是工作时间，5:00之后应该是和家人共度的美好时光，所以晚饭一定要和家人聚在一起享用。<br />
+我们应该<strong>有工作之外的追求</strong>，我们有亲人，有孩子需要陪伴；也可以追求自身的爱好。总而言之，工作只是人生的一部分，而不是全部。</p>
+
+<h3 id="section-8">最大限度发挥大脑机能，提高专注力的方法</h3>
+<p>#### 最强大脑之一: 15 45 90法则<br />
+* <strong>20分钟效应</strong><br />
+人高度专注的状态一般只能持续15分钟，不会超过20分钟，也就是说 <strong>15分钟可以看成一个专注力的单位时间。</strong><br />
+理解20分钟效应有助于我们提高工作效率，比如说作者在乘坐地铁的时候肯定会读书，每次只读10~15分钟，但这个时候读书的速度是其他时间段的5倍，因为在这个时间段里注意力更靠读书，可以达到入定状态，所以15分钟是注意力的一个时间单位在工作中那些用时不长又需要一气呵成完成的工作，就适合用15分钟来完成。</p>
+
+<ul>
+  <li>
+    <p><strong>45分钟:课堂上学生的专注力集中时间</strong><br />
+日本大学文理学院的熊朝雄教授曾说过，<strong>人的专注力持续的极限是40分钟</strong>，他劝诫上班族说，如果你的工作主要是面对电脑处理施工文件，最好每隔40~50分钟就休息一下，无论是工作还是学习，我们最好以15分钟为基本的时间，单位每隔15分钟小休息一下，以三个15分钟为工作单元45分钟大休息一下，这样可以让我们的专注力持续更长的时间。</p>
+  </li>
+  <li>
+    <p>90分钟足球比赛的专注力集中时间。<br />
+90分钟可以说是成年人专注力持续时间的极限，如果能以45分钟为一个小节，中间穿插短暂的休息，那么将更有利于专注力的持续。</p>
+  </li>
+  <li>
+    <p>人体内有一个90分钟计时器<br />
+根据这些原则我们就可以根据具体的情况来选择合适的休息时间，但大体上可以保持15 45 90法则。<br />
+<img src="/img/books/manage-your-energy/focus_time_4.jpg" alt="focus_time_4" /></p>
+  </li>
+</ul>
+
+<h4 id="section-9">最强大脑之二: 杂念排除法</h4>
+<p>蔡戈尼克效应：<br />
+苏联心理学家蔡戈尼克在一家她经常光顾的咖啡馆中有一个重大发现，那家咖啡馆的服务员不用做记录，就能同时准确的记住好几位客人点的餐，可是当这位服务员把客人需要的餐点端上桌之后，他很快就把刚才那几位客人。点了什么都给忘记了。后来蔡戈尼克通过心理学实验对这个发现进行了验证，最后得出是结论当目标没有实现时，能对未完成的课题记忆比较深刻，但目标实现后能对已经完成的课题记忆就没有那么深刻了，人们将这种现象称作蔡戈尼克效应。</p>
+
+<p>大脑会一直跟踪未完成的目标，所以如果产生杂念，把这些杂念写在纸上把杂念写出来之后，原来未完成的课题就变成了已完成。头脑中的紧张状态就会解除，这个杂念也就随之消失了，一句话：<strong>头脑中产生杂念把它写下来写出来就忘了</strong>。</p>
+
+<h4 id="section-10">最强大脑之三： 时间限制的工作术</h4>
+
+<p><strong>为什么学生的暑假作业一天就可以完成了？</strong></p>
+
+<p>背水一战，狗急跳墙，兔子急了也咬人，这些俗语告诉我们，当人陷入紧急状况时，可以发挥出超常的能力。</p>
+
+<p>基于这个原理，有工作达人推荐秒表工作法就是为工作设定一个时间限制，工作效率就会大幅提升。<br />
+一旦工作中，加入了时间限制，就会有两个工作高峰，最初和最后。<br />
+<img src="/img/books/manage-your-energy/focus_time_5.jpg" alt="focus_time_5" /><br />
+<img src="/img/books/manage-your-energy/focus_time_6.jpg" alt="focus_time_6" /></p>
+
+<ul>
+  <li>严守时间限制的工作方法<br />
+一件事如果要是说有空再作，那最后肯定是遥遥无期，但是如果把这件事情的时间定好，那一般都会在截止之前开始动手<br />
+<strong>严守时间限制的人会对时间限制产生紧张感，从而促进去甲肾上腺素的分泌，在去甲肾上腺素的帮助下，注意力高度集中，从而高效率高质量的按期完成任务</strong>，但不守时的人对于时间限制已经不当做一回事，得不到去甲肾上腺素的帮助，所以工作总是磨磨蹭蹭，拖拖拉拉，质量还不高，就拿前面举的那位拖稿的作者来演，他拖延了一个月才交稿，其实也相当于浪费了自己一个月的时间。</li>
+</ul>
+
+<h3 id="section-11">午后重启术</h3>
+<p>午休是一个恢复专注力的绝佳机会，经过一个上午高强度工作到了中午的时候，人的专注力已经下降40~50%，但<strong>如果把午休时间利用好，下午完全可以将专注力恢复到90%左右</strong>。午休时间没有利用好下午就可能会损失两个小时，结果就是下午下班时间干不完工作不得不加班。</p>
+
+<h3 id="section-12">通过变换工作场所恢复专注力</h3>
+
+<p>提高记忆力的场所神经元，散步移动改变场所等对大脑都有很好的帮助，因为通过移动改变场所可以激发人脑内场所神经元的活性。一边走路一边学习，记忆更加深刻，这个现象已经得到了脑科学的验证。</p>
+
+<p>在有些公司的会议室会有各种不同的装修，主要是为了刺激人的场所神经元，使得人的大脑随之变得灵活，开会时就会有更多的好点子让开会的质量更高，而眼前的风景有所改变，就能对场所生意也形成刺激，所以当工作造成精神疲劳的时候可以换个地方工作如此简单的恢复方法一定不能错过。</p>
+
+<h3 id="section-13">午睡</h3>
+<p>仅仅30分钟的午睡，就可以让我的大脑和身体得到充分的恢复。<strong>午间小睡对于消除身体和大脑疲劳具有绝佳的效果</strong>，还可以改善注意力，记忆力等机能<br />
+<strong>但最佳午睡时间为二十到三十分钟</strong><br />
+午睡超过一个小时人就会进入深度睡眠，醒来之后大脑也无法发挥正常机能，而午睡太久会影响到晚上的入睡，是造成失眠的原因之一。</p>
+
+<h3 id="section-14">运动重启术</h3>
+<p>如果举出一个最简单有效的恢复大脑活力的方法，会毫不犹豫的说运动只需10分钟的运动，就可以提高去甲肾上腺素血清素的脑内物质的浓度，可以让您在接下来的90分钟里一直充满能量，专注力与学习工作效率大幅提升。</p>
+
+<p>对于上班族而言，在公司大厦里爬几层楼梯或深蹲10次都能明显的感觉到大腿肌肉的紧张。<strong>只要是有意识的运动身体就可以有效的转化心情，提高专注力</strong>。<br />
+<strong>一个人的早上的工作时间是黄金时间，但是到运动之后就是大脑的第2个黄金时间</strong></p>
+
+<p>以作者为例，在体育馆傍晚的时候会去体育馆做运动，冲过澡之后立刻就会投入写作，虽然已经是晚上，但是写作状态和早上并没有什么区别，早上两个小时能写满10个月的高枝儿，办完之后两个小时也能写出10页，而且质量也很高，这样一天的工作时间是翻倍了，对于上班族而言，最佳的创造创造工作时间就莫过于下午运动重启术。</p>
+
+<p>下午进行适度的有氧运动可以让专注力恢复到100%，也就是创造出大脑的第2个黄金时间。<br />
+<img src="/img/books/manage-your-energy/focus_time_9.jpg" alt="focus_time_9" /></p>
+
+<h3 id="section-15">运动越多，创造出来的时间就越多</h3>
+<p>坚持运动一段时间你就会发现每周能确保运动一次之后，就能确保每周运动两次，每周运动两次之后就能再多一次运动三次运动之后人的体力和大脑机能都会提升，工作效率比以前显著提高，这样就可以让工作在更短的时间内完成创造出更多的工作时间，运动也能让我们的睡眠质量更高，白天的疲劳得到彻底的恢复，第2天到了又能以100%的状态投入工作<br />
+坚持运动还能让大脑内的神经元，网络越来越细密，结构越来越合理，换句话说就是头脑运转得越来越快，同样的工作只需要更短的时间，质量而且越高，<strong>根据作者的经验坚持运动之后和不运动的时候相比一个月的工作总量几乎是以前的两倍，而且可支配的自由支配的时间大幅增加，所以越是声称自己没有时间的人越应该运动起来，运动会帮您创造出更多的是时间</strong></p>
+
+<h3 id="section-16">为什么加班是不可取的</h3>
+<p>从下面这张图表可以看出，如果每天都没有得到充分的休息专注力，无法回复，那么总体来说一周的工作效率是非常低的，成果比正常休息的要少。<br />
+<img src="/img/books/manage-your-energy/focus_time_10.jpg" alt="focus_time_10" /></p>
+
+<h3 id="section-17">把自由时间利用到极致的自我投资自我更新</h3>
+<p>最好的自由时间之一，自由时间不要用于工作。<br />
+我的理解其实是在自由时间，并不一定要完全是在做工作，而是要扩展自己的认知范围探求自己能做好的事情。<br />
+作者的本职工作是一个外科医生，但是后期成为一名作家平均每年能出三本书，这种情况下它的效率比过去提高。</p>
+
+<p>把时间投资自己的专长。</p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/04/01/How-to-dynamic-update-the-tags-with-cscope/" data-toggle="tooltip" data-placement="top" title="使用vim+cscope如何动态更新代码索引">
+                        Next<br>
+                        <span>使用vim+cscope如何动态更新代码索引</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- 引入Gitalk评论插件  -->
+                <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+                <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+                <div id="gitalk-container"></div>
+                <script type="text/javascript">
+                    var gitalk = new Gitalk({
+                    clientID: '3b37dc28016e67103345',
+                    clientSecret: 'a2a01fa75e11ef787788bcbbfcade4993ca78afc',
+                    repo: 'kinlin.github.io',
+                    owner: 'kinlin',
+                    admin: ['kinlin'],
+                    distractionFreeMode: true,
+                    id: window.location.pathname,
+                    });
+                    gitalk.render('gitalk-container');
+                </script>
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">关键字</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#读书笔记" title="读书笔记" rel="1">
+                                    读书笔记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技能" title="技能" rel="1">
+                                    技能
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#TED" title="TED" rel="1">
+                                    TED
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href=""></a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; KinLin's Blog 2019
+                    <br>
+                    Theme on <a href="">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=&repo=.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/heart_love.ico" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
