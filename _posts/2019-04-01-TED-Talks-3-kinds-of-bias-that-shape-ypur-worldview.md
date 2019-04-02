@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      塑造你世界观的三种原理
+title:      世界观出现偏差的三种原理
 subtitle:   3 kinds of bias that shape your worldview--TED
 date:       2019-04-01
 author:     KinLin
