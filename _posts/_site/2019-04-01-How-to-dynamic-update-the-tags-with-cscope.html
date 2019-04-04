@@ -1,0 +1,141 @@
+<h3 id="section">前言</h3>
+
+<p>对于使用source insight的人而言，并不存在这个问题，因为source insight在文件变动时自动就会处理索引的更新。但是对于使用vim+cscope的同学而言，就没那么方便了。</p>
+
+<p>试想一下，你正在修改代码，然后cscope找函数，发现由于修改更新了，找到的位置偏移了好几百行。。。这时候，退出再重新进入编辑。效率就极大降低了，
+违背了我们用工具提高看代码效率的初衷。</p>
+
+<h3 id="section-1">如何修改</h3>
+
+<ul>
+  <li>在<code class="highlighter-rouge">.vimrc</code>文件中添加下面函数。之后每次在阅读代码的同时就能直接按<code class="highlighter-rouge">F12</code>更新代码索引了</li>
+</ul>
+
+<p>```
+#!/bin/bash</p>
+
+<p>map <f12> : call ReConnectCscope()<cr>
+func! ReConnectCscope()
+exec "cs kill 0"
+exec "!./generate.sh"
+exec "set csprg=~/cscope.sh"
+exec "cs add cscope.out"
+endfunc
+```</cr></f12></p>
+
+<ul>
+  <li>另附上面会用到的<code class="highlighter-rouge">generate.sh</code>, 之所以使用generate.sh, 是为了自行过滤一些文件。</li>
+</ul>
+
+<p>```shell
+#!/bin/bash
+date;
+echo “ctags done……”
+find -L . -name  “<em>.h” -o -name “</em>.c” -o -name “<em>.cc” -o -name “</em>.cpp” -o -name “<em>.py” &gt; cscope.files;
+find -L . -name “</em>.pl” »cscope.files</p>
+
+<p>date;
+cscope -RCbq -i cscope.files;
+ctags -R -L cscope.files;
+echo “cscope done……”
+date;</p>
+
+<p>```</p>
+
+<h3 id="vimrc">使用vimrc文件定义快捷键执行更酷炫的操作</h3>
+
+<ul>
+  <li>作为一名工程师，经常会需要<code class="highlighter-rouge">ssh</code>远程连接到其他机器，这种情况下可能会有其他用户也在使用vim看代码，这时候如果我们轻易改变vim的配置，那么<code class="highlighter-rouge">.vimrc</code>很快就会被改得面目全非。所以问题来了： <strong>能不能定义一套配置，只有自己使用，其他人仍然使用默认的配置呢？</strong></li>
+</ul>
+
+<blockquote>
+  <p>当然有！</p>
+</blockquote>
+
+<ul>
+  <li><strong>我们完全可以定义一套配置，通过快捷键生效！</strong></li>
+</ul>
+
+<p>```vimrc
+示例如下：</p>
+
+<p>“Do this First : 首先需要安装plug脚本
+“curl -fLo ~/.vim/autoload/plug.vim –create-dirs \
+“    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim</p>
+
+<p>“把自己常用的一些脚本可以安装好
+call plug#begin(‘~/.vim/plugged’)
+Plug ‘vim-scripts/mru.vim’
+Plug ‘ctrlpvim/ctrlp.vim’
+Plug ‘tomasr/molokai’
+Plug ‘octol/vim-cpp-enhanced-highlight’
+Plug ‘lokaltog/vim-powerline’
+Plug ‘t9md/vim-quickhl’
+call plug#end()</p>
+
+<p>“Magic time.执行F12快捷键后，我们可以配置色彩方案，配置插件设置。
+“一切都变得不一样，专属于你自己的一套配置。所有操作习惯都可以继续。多么美好！
+“some personal config
+map <f12> : call PersonalConfigs()<cr>
+func! PersonalConfigs()
+exec "colorscheme molokai"
+exec "set laststatus=2"
+exec "set fillchars+=stl:\\ ,stlnc:\\"
+exec "set encoding=utf-8"
+exec "let g:cpp_class_scope_highlight = 1"
+exec "let g:cpp_member_variable_highlight = 1"
+exec "let g:cpp_experimental_template_highlight = 1"
+exec "let g:cpp_concepts_highlight = 1"
+exec "let g:Powerline_symbols = 'compatible'"
+"exec "nmap <space>m <plug>(quickhl-manual-this)"
+"exec "xmap <space>m <plug>(quickhl-manual-this)"
+"exec "nmap <space>M <plug>(quickhl-manual-reset)"
+"exec "xmap <space>M <plug>(quickhl-manual-reset)"
+exec "set incsearch"
+endfunc
+```</plug></space></plug></space></plug></space></plug></space></cr></f12></p>
+
+<h3 id="cscope">如何使得cscope查找字符时不区分大小写</h3>
+
+<p>通常情况下，我们查找函数定义时，需要提供精确的名字，但是我们很难记住一个字符串同时还记住它第几个字符是大小写。</p>
+
+<p>cscope本身就具有忽略大小写的选项，我们需要打开即可。</p>
+
+<ul>
+  <li>首先我们在home目录<code class="highlighter-rouge">~</code>下创建一个脚本<code class="highlighter-rouge">cscope.sh</code>,并赋予执行权限</li>
+</ul>
+
+<p>```
+#/!bin/sh</p>
+
+<p>cscope -C “$@”
+```</p>
+
+<ul>
+  <li>然后修改vimrc如下</li>
+</ul>
+
+<p>```vimrc
+“ cscope settings
+if has(“cscope”)
+“   set csprg=/usr/bin/cscope
+“主要修改就是这句，将调用/usr/bin下的cscope改为调用cscope.sh脚本
+    set csprg=~/cscope.sh
+    set csto=0
+    set cst
+    set nocsverb
+    “ add any database in current directory
+    if filereadable(“cscope.out”)
+        cs add cscope.out
+        “ else add database pointed to by environment
+    elseif $CSCOPE_DB != “”
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+endif</p>
+
+<p>```</p>
+
+<ul>
+  <li>现在可以试着搜索一个字符串，完全不用顾及大小写的问题，舒服多了。</li>
+</ul>
