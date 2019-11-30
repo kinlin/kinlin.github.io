@@ -10,7 +10,7 @@
     <meta name="keywords"  content="camera, c++, dev">
     <meta name="theme-color" content="#000000">
     
-    <title>世界观出现偏差的三种原理 - KinLin | KinLin‘s   Blog</title>
+    <title>手机相机自动对焦(AF) - KinLin | KinLin‘s   Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="/2019/04/01/TED-Talks-3-kinds-of-bias-that-shape-ypur-worldview/">
+    <link rel="canonical" href="/2019/05/11/autofocus_guideline/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -173,15 +173,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#TED" title="TED">TED</a>
+                        <a class="tag" href="/tags/#技术" title="技术">技术</a>
                         
                     </div>
-                    <h1>世界观出现偏差的三种原理</h1>
+                    <h1>手机相机自动对焦(AF)</h1>
                     
                     
-                    <h2 class="subheading">3 kinds of bias that shape your worldview--TED</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by KinLin on April 1, 2019</span>
+                    <span class="meta">Posted by kinlin on May 11, 2019</span>
                 </div>
             </div>
         </div>
@@ -199,70 +199,90 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h3 id="ted资源">TED资源</h3>
-<ul>
-  <li><em>演讲视频</em>
-    <ul>
-      <li>https://pc.tedcdn.com/talk/stream/2018X/Blank/JMarshallShepherd_2018X-1500k.mp4</li>
-    </ul>
-  </li>
-  <li><em>字幕文本</em>
-    <ul>
-      <li>https://ted2srt.org/talks/j_marshall_shepherd_3_kinds_bias_that_shape_your_worldview</li>
-    </ul>
-  </li>
-</ul>
+				<h3 id="什么是自动对焦auto-focus">什么是自动对焦(auto focus)</h3>
 
-<h3 id="前言">前言</h3>
-<p>在我们认知这个世界的过程中，总是伴随着各种偏差。我们所认为的与真实的世界是不同的。这个TED演讲就从一个气象学家的角度来说明这种偏差</p>
+<p>自动对焦是指手机中，利用sensor、控制软件和马达来实现改变成像距离，使sensor能获得清晰的照片的过程。在手机方案里，最重要的部分就是<code class="highlighter-rouge">自动</code>。想象一下，小时候都玩过的用放大镜来聚焦阳光取火的游戏。在阳光下移动放大镜，使得聚焦的光点最小，几秒钟就能点燃一张纸巾，这里那个<code class="highlighter-rouge">最亮的光点</code>就是焦点。</p>
 
-<h3 id="什么时候会下雨">什么时候会下雨？</h3>
-<p>作为一名气象学家, Marshall博士经常会被问道的问题是<strong>什么时候会下雨？</strong>但是气象学家其实也不知道这个问题。大多数人都不会问<strong>如果到大楼楼顶，将一个球丢下去，它会不会下落？</strong>这是因为人们认可<strong>重力是一个客观规律</strong>。但面对气象学家的时候，人们经常会混淆<strong>气候与天气</strong>。气象学家知道大西洋上有一个巨大的气旋正在形成具有超强破坏力的风暴，但是只能预警，却不能准确预测出<strong>哪一天哪一个时间你家的院子里会积满水。</strong></p>
+<p>同样，手机摄像头结构上也是有感光元件和镜头组成，通过镜头移动来改变焦点以获得最清晰的图片。</p>
 
-<h3 id="公众与科学家之间的认知偏差">公众与科学家之间的认知偏差</h3>
-<p>以气候变化为例，87%的科学家相信人类造成了气候变化，但只有50%的公众相信。科学家已经有足够的证据表明这一点，但公众的认知没有被改变。</p>
+<h3 id="来自生物学的礼物人类的眼睛是如何对焦的">来自生物学的礼物：人类的眼睛是如何对焦的？</h3>
 
-<h3 id="三个重要原理">三个重要原理</h3>
+<p>手机摄像头的发展，很大程度上在吸取人眼的功能。比如，当我们扭头看向不同的物体时，对焦就已经完成，甚至不需要刻意去做什么； 能够适应不同的光照条件，当从正常光照条件下走向一间漆黑一片的房间后，经过很短时间的调节就能借助极其微弱的光照条件看清楚物体，倘若这时候拿出一部手机，很大可能获得的是黑乎乎一片加大片的噪点。 而且我们的眼睛天生就有防抖功能，比如我们在一个轻微抖动的车上，依然能看清车外的美景，但是如果相机没有防抖功能，那很大可能是无法完成对焦的。</p>
 
-<ul>
-  <li><strong>confirmation bias</strong>
-<img src="/img/ted/confirmation_bias_1.jpg" alt="confirmation_bias_1" /></li>
-</ul>
+<p>那人眼的机构是什么样的呢？
+<img src="/img/text_img/human_eye_anatomy.jpg" alt="human_eye" /></p>
 
 <blockquote>
-  <p>确认偏差：人们总是选择性的回忆、收集有利信息，而忽略不利的信息。
-简单而言，就是<strong>当你认为什么是对的，你总是倾向于查找你相信的信息，而去忽略与你观点不一致的信息。长此以往，你的观点被不断强化，即便是错误的，依然被你自己当作真理</strong></p>
+  <p>人眼的组成部分有：
+Optical Nerve: 视觉神经
+Retina: 视网膜
+Lens: 晶状体
+Conenea: 
+Cilliary Muscle: 睫状肌
+Pupil: 瞳孔
+Iris: 虹膜</p>
+</blockquote>
+
+<p>摄像头的结构：
+<img src="/img/text_img/phone-camera.jpg" alt="phone-camera" />
+<img src="/img/text_img/phone-camera_2.jpg" alt="phone-camera-2" /></p>
+
+<p>可以看到，从结构上来说，与人眼是非常类似的。 人眼通过睫状肌调节来改变焦距，而手机通过音圈马达条件镜头实现对焦(需要注意的是早期摄像头不带马达，因此是定焦的)。人眼通过视网膜感光并通过视觉神经传输信号，而摄像头则是通过CMOS来感光。</p>
+
+<p>但是人眼和器件的感光能力是有差异的。以下图为例. 从频谱上来说，CMOS的感光能力与人眼是有差距的。这虽然意味着从CMOS最终的成像其实与人眼所看到的是不一样的，但是有时候正好为我们所用，比如在黑暗环境下就能让我们看到更多东西。不过正常情况下，是需要滤光片过滤掉一些频谱的光源</p>
+
+<blockquote>
+  <p>某 CMOS 感光能力
+<img src="/img/text_img/cmos_sense.png" alt="cmos_sense" /></p>
 </blockquote>
 
 <blockquote>
-  <p> 现实世界有太多这种例子了。有人相信手机信号塔致癌，无论怎样解释电离辐射和电磁辐射的区别，无论实验结果。仍然选择相信小道消息，并以此对抗信号塔的树立。又或者当你爱看某一类的新闻如末日说，客户端会不停的推荐类似观点，不断让你相信。（这里我认为<strong>算法推荐信息流有时候对独立思考是不利的</strong>）</p>
+  <p>人眼感光能力
+<img src="/img/text_img/eye_sense.png" alt="eye_sense" /></p>
 </blockquote>
 
-<p><img src="/img/ted/confirmation_bias_2.jpg" alt="confirmation_bias_2" /></p>
+<p>而在CMOS的排布上似乎也是模仿人眼。人眼的视锥细胞是各有分工，有的对红色敏感，有的对绿色敏感。而在摄像头上，人们给每一个像素都加上了红色或绿色或蓝色的滤光片过滤，最终的图像是一个二维的，由单一红点、绿点、蓝点组成Bayer pattern。厂家宣传的几百万几千万像素指的就是单色的像素。如何形成我们看到的图像则需要经过debayer或者叫demosaic的过程插值还原。
+demosaic可以参考一些文章，或者开源库。比较常规基础。
+<img src="/img/text_img/bayer_pattern.png" alt="bayer_pattern" />
+<img src="/img/text_img/debayer.png" alt="debayer" /></p>
 
+<p>还得加上这张图，表示人眼的</p>
 <ul>
-  <li><strong>邓宁-克鲁格效应（Dunning-Kruger effect）</strong></li>
+  <li><a href="https://www.cnbeta.com/articles/tech/850243.htm"></a></li>
 </ul>
 
-<blockquote>
-  <p>这张图就可以很好的解释. <strong>一知半解的人反而无比自信，了解的越多越心存敬畏</strong>, 或者说每个人都是从<strong>不知道自己不知道</strong>进化到<strong>知道自己知道</strong>的。</p>
-</blockquote>
-
-<p><img src="/img/ted/Dunning-Kruger-effect.jpg" alt="Dunning-Kruger-effect" /></p>
-
-<ul>
-  <li><strong>cognitive dissonance</strong>
-如果对同一个事物，有2个不同的解释相互冲突，大部分人就可能会放弃或改变认知，从而达到消除冲突、恢复一直的状态。</li>
-</ul>
+<h3 id="那软件算法呢">那软件算法呢？</h3>
+<p>人眼对焦的时候，我们从来没有考虑过一个问题，就是<code class="highlighter-rouge">清晰</code>这个概念。对人类而言，清晰似乎就是一种感觉，但是当手机在拍照的时候，它是通过什么指标判断是否是清晰的呢？如果不解决这个问题，手机无法通过程序控制镜头移动到最清晰的位置。</p>
 
 <blockquote>
-  <p>最常见的就是天气预报，天气预报有90%的概率是对的，但人们总会记住它犯错的那几次。不过我倒觉得从个人角度比较好理解，因为一旦你相信天气预报没有雨，但是实际上来了一场大阵雨导致你淋湿，即便从概率上说只有10%，但你从此一定会怀疑天气预报是错误的。</p>
+  <p>怎么定义一张图片是否清晰？</p>
+  <blockquote>
+    <p>ISP 内部，使用一个简单的filter kernel，对选择的roi进行逐行处理得到特定区域的FV值。根据horizontal和vertical方向区分为H1/V1, 当我们进行对焦过程中，这一计算过程是每一帧都有，所以每次lens move结束，都可以得到一个fv值，最简单的hill-climb 算法就是找出FV值最大的区域，就是最清晰的。此时可以结束对焦，不再移动lens。</p>
+  </blockquote>
 </blockquote>
 
-<h3 id="如何改变">如何改变？</h3>
+<p>但相机发展至今，使用FV值这种方式太慢了，后面随着sensor厂家的推陈出新（对焦的进步几乎就是器件和算法的综合），推出了相位对焦（PDAF）。PDAF可以直接得出距离，根据PD点的差值，这使得我们不再需要反复移动lens来找到这个FV而是直接得出最后的距离。</p>
+
+<p>PD的引入是从iphone5开始的，至今已经有好几年了，sensor厂的pdsensor也从普通的mask形态的pd，改进为2x1的sparse PD，到dual-pd.到现在最新的2x2 pd imx689sensor, 每一步都是整个产业链的配合，使得我们的对焦能在0.1秒内就完成（3帧以内， 30fps）。</p>
+
+<p>但从今年2019年的趋势看，pd几乎已经见顶了。因为现在的sensor pixel数量已经从当年的12M进化到48M甚至108M，这种恐怖的pixel点数，使得PD计算耗时倍增。但是为了对焦质量，减少PD点也是不可取的，而且对焦已经不仅仅是对准一个区域，而是需要准确识别遮挡，这对PD输出质量要求非常之高。于是</p>
+<blockquote>
+  <p>一方面，PD的计算开始像当年的FV一样，从软件放到硬件去计算，ISP内部继承了专门的PD模块去处理巨量的PD点。</p>
+</blockquote>
+
+<blockquote>
+  <p>另一方面，TOF开始逐渐盛行。因为激光测距有几个好处，一个是直接的物理测距没有什么复杂的计算，AF就是希望知道这个信息。另一个就是在激光测距范围内，不受低光照的影响，而PD在低光照情况下是受到影响的。</p>
+</blockquote>
+
+<h3 id="接下来还有哪些可以改进的">接下来还有哪些可以改进的？</h3>
+<p>玩法的创新：希区柯克变焦？</p>
+
+<h3 id="参考">参考</h3>
 <ul>
-  <li><strong>扩展你的知识范围，避免当井底之蛙。</strong></li>
-  <li><strong>如果你确信一件事是对的，那么深挖一下，究竟是哪些具体的案例导致你深信不疑，是否有可能是来源于一些偏见，比如地域、政治倾向、信仰等等。</strong></li>
+  <li><a href="https://en.wikipedia.org/wiki/Autofocus">autofocus  wiki</a></li>
+  <li><a href="https://tuitionphysics.com/2016-mar/physics-behind-accommodation-of-the-human-eye/">physics-behind-accommodation-of-the-human-eye</a></li>
+  <li><a href="https://www.zhihu.com/question/34765747">知乎：人眼是如何对焦和防抖的</a></li>
+  <li><a href="https://medium.com/photography-secrets/whats-the-difference-between-a-camera-and-a-human-eye-a006a795b09f">whats-the-difference-between-a-camera-and-a-human-eye</a></li>
 </ul>
 
 
@@ -271,17 +291,17 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/04/01/How-to-dynamic-update-the-tags-with-cscope/" data-toggle="tooltip" data-placement="top" title="使用vim+cscope如何动态更新代码索引">
+                        <a href="/2019/05/05/Recurrent_Laryngeal_Nerve_and_Iterative_dev/" data-toggle="tooltip" data-placement="top" title="喉返神经与迭代开发">
                         Previous<br>
-                        <span>使用vim+cscope如何动态更新代码索引</span>
+                        <span>喉返神经与迭代开发</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2019/04/04/What-AI-gaint-Doing/" data-toggle="tooltip" data-placement="top" title="互联网巨头在干什么">
+                        <a href="/2019/05/12/everyone_beat_warron/" data-toggle="tooltip" data-placement="top" title="人人都能击败股神">
                         Next<br>
-                        <span>互联网巨头在干什么</span>
+                        <span>人人都能击败股神</span>
                         </a>
                     </li>
                     

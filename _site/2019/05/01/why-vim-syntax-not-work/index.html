@@ -10,7 +10,7 @@
     <meta name="keywords"  content="camera, c++, dev">
     <meta name="theme-color" content="#000000">
     
-    <title>世界观出现偏差的三种原理 - KinLin | KinLin‘s   Blog</title>
+    <title>vim打开大文件时无法高亮语法 - KinLin | KinLin‘s   Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="/2019/04/01/TED-Talks-3-kinds-of-bias-that-shape-ypur-worldview/">
+    <link rel="canonical" href="/2019/05/01/why-vim-syntax-not-work/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -173,15 +173,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#TED" title="TED">TED</a>
+                        <a class="tag" href="/tags/#vim" title="vim">vim</a>
                         
                     </div>
-                    <h1>世界观出现偏差的三种原理</h1>
+                    <h1>vim打开大文件时无法高亮语法</h1>
                     
                     
-                    <h2 class="subheading">3 kinds of bias that shape your worldview--TED</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by KinLin on April 1, 2019</span>
+                    <span class="meta">Posted by kinlin on May 1, 2019</span>
                 </div>
             </div>
         </div>
@@ -199,71 +199,47 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h3 id="ted资源">TED资源</h3>
-<ul>
-  <li><em>演讲视频</em>
-    <ul>
-      <li>https://pc.tedcdn.com/talk/stream/2018X/Blank/JMarshallShepherd_2018X-1500k.mp4</li>
-    </ul>
-  </li>
-  <li><em>字幕文本</em>
-    <ul>
-      <li>https://ted2srt.org/talks/j_marshall_shepherd_3_kinds_bias_that_shape_your_worldview</li>
-    </ul>
-  </li>
-</ul>
+				<h3 id="问题">问题</h3>
 
-<h3 id="前言">前言</h3>
-<p>在我们认知这个世界的过程中，总是伴随着各种偏差。我们所认为的与真实的世界是不同的。这个TED演讲就从一个气象学家的角度来说明这种偏差</p>
+<p>使用vim打开非常大的文件时，具有一定的优势，尤其是通过ssh远程连接客户代码，但是经常会碰到语法无法高亮的情形。</p>
 
-<h3 id="什么时候会下雨">什么时候会下雨？</h3>
-<p>作为一名气象学家, Marshall博士经常会被问道的问题是<strong>什么时候会下雨？</strong>但是气象学家其实也不知道这个问题。大多数人都不会问<strong>如果到大楼楼顶，将一个球丢下去，它会不会下落？</strong>这是因为人们认可<strong>重力是一个客观规律</strong>。但面对气象学家的时候，人们经常会混淆<strong>气候与天气</strong>。气象学家知道大西洋上有一个巨大的气旋正在形成具有超强破坏力的风暴，但是只能预警，却不能准确预测出<strong>哪一天哪一个时间你家的院子里会积满水。</strong></p>
+<p>这时候，如果往上翻到高亮处，再逐页往下，就能高亮。这样看代码实在有点麻烦。在我的机器上，如果打开一个20000行左右的源码，</p>
 
-<h3 id="公众与科学家之间的认知偏差">公众与科学家之间的认知偏差</h3>
-<p>以气候变化为例，87%的科学家相信人类造成了气候变化，但只有50%的公众相信。科学家已经有足够的证据表明这一点，但公众的认知没有被改变。</p>
+<p>就有可能出现后半段无法高亮的情形。尤其是在跳转时，突然从高亮代码跳转到一片灰蒙蒙的代码，非常影响效率和心情。</p>
 
-<h3 id="三个重要原理">三个重要原理</h3>
+<h3 id="解决">解决</h3>
 
-<ul>
-  <li><strong>confirmation bias</strong>
-<img src="/img/ted/confirmation_bias_1.jpg" alt="confirmation_bias_1" /></li>
-</ul>
+<p>google后发现，社区上其实已经有了讨论。</p>
 
-<blockquote>
-  <p>确认偏差：人们总是选择性的回忆、收集有利信息，而忽略不利的信息。
-简单而言，就是<strong>当你认为什么是对的，你总是倾向于查找你相信的信息，而去忽略与你观点不一致的信息。长此以往，你的观点被不断强化，即便是错误的，依然被你自己当作真理</strong></p>
-</blockquote>
+<p>https://github.com/vim/vim/issues/2790</p>
 
-<blockquote>
-  <p> 现实世界有太多这种例子了。有人相信手机信号塔致癌，无论怎样解释电离辐射和电磁辐射的区别，无论实验结果。仍然选择相信小道消息，并以此对抗信号塔的树立。又或者当你爱看某一类的新闻如末日说，客户端会不停的推荐类似观点，不断让你相信。（这里我认为<strong>算法推荐信息流有时候对独立思考是不利的</strong>）</p>
-</blockquote>
+<p>因为对于vim的渲染而言，会有一个时间限制，如果超出限制当页未能完成，就停止了。这时候就有了第一个解法：</p>
 
-<p><img src="/img/ted/confirmation_bias_2.jpg" alt="confirmation_bias_2" /></p>
+<p>增加渲染时间到最大： <code class="highlighter-rouge">set redrawtime=10000</code></p>
 
-<ul>
-  <li><strong>邓宁-克鲁格效应（Dunning-Kruger effect）</strong></li>
-</ul>
+<p>遗憾的是，在我这行不通，可能是即便设置了最大时间，依然无法完成。这样做反而对打开文件性能有巨大的影响。明显变慢，因为渲染时间更长了。</p>
 
-<blockquote>
-  <p>这张图就可以很好的解释. <strong>一知半解的人反而无比自信，了解的越多越心存敬畏</strong>, 或者说每个人都是从<strong>不知道自己不知道</strong>进化到<strong>知道自己知道</strong>的。</p>
-</blockquote>
+<p>那还有没有其他方法？ 有，就是强制刷新本页，这样做对当前文件是有效的，能解决。</p>
 
-<p><img src="/img/ted/Dunning-Kruger-effect.jpg" alt="Dunning-Kruger-effect" /></p>
+<p>办法就是在vim里执行<code class="highlighter-rouge">syntax sync fromstart</code></p>
 
-<ul>
-  <li><strong>cognitive dissonance</strong>
-如果对同一个事物，有2个不同的解释相互冲突，大部分人就可能会放弃或改变认知，从而达到消除冲突、恢复一直的状态。</li>
-</ul>
+<p>这样是能解的。不过在这过程中，发现<code class="highlighter-rouge">syntax on</code>和<code class="highlighter-rouge">syntax off</code>比较情形下，明显开了语法高亮时特别慢，不够流畅。</p>
 
-<blockquote>
-  <p>最常见的就是天气预报，天气预报有90%的概率是对的，但人们总会记住它犯错的那几次。不过我倒觉得从个人角度比较好理解，因为一旦你相信天气预报没有雨，但是实际上来了一场大阵雨导致你淋湿，即便从概率上说只有10%，但你从此一定会怀疑天气预报是错误的。</p>
-</blockquote>
+<p>综合下来的解决方案就是，如下配置：</p>
 
-<h3 id="如何改变">如何改变？</h3>
-<ul>
-  <li><strong>扩展你的知识范围，避免当井底之蛙。</strong></li>
-  <li><strong>如果你确信一件事是对的，那么深挖一下，究竟是哪些具体的案例导致你深信不疑，是否有可能是来源于一些偏见，比如地域、政治倾向、信仰等等。</strong></li>
-</ul>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>" vim卡顿 https://github.com/wklken/k-vim/issues/233
+" 主要是因为syntax on. 如果syntax off会好很多
+set re=1
+set ttyfast
+set lazyredraw
+
+"map syntax sync fromstart
+nmap tu :syntax sync fromstart&lt;cr&gt;
+</code></pre></div></div>
+
+<p>这样在打开时速度快，不卡顿。遇到大文件无法渲染完成时，只需要使用快捷键<code class="highlighter-rouge">tu</code>即可迅速完成。 毕竟过万行的代码是少数的，为了极少数大文件的</p>
+
+<p>语法高亮而牺牲速度是不值得的。</p>
 
 
                 <hr style="visibility: hidden;">
@@ -271,17 +247,17 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/04/01/How-to-dynamic-update-the-tags-with-cscope/" data-toggle="tooltip" data-placement="top" title="使用vim+cscope如何动态更新代码索引">
+                        <a href="/2019/04/20/SmartPhoneCameraHistory/" data-toggle="tooltip" data-placement="top" title="手机相机发展简史">
                         Previous<br>
-                        <span>使用vim+cscope如何动态更新代码索引</span>
+                        <span>手机相机发展简史</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2019/04/04/What-AI-gaint-Doing/" data-toggle="tooltip" data-placement="top" title="互联网巨头在干什么">
+                        <a href="/2019/05/05/Recurrent_Laryngeal_Nerve_and_Iterative_dev/" data-toggle="tooltip" data-placement="top" title="喉返神经与迭代开发">
                         Next<br>
-                        <span>互联网巨头在干什么</span>
+                        <span>喉返神经与迭代开发</span>
                         </a>
                     </li>
                     

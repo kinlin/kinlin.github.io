@@ -199,20 +199,20 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h3 id="section">前言</h3>
+				<h3 id="前言">前言</h3>
 
 <p>对于使用source insight的人而言，并不存在这个问题，因为source insight在文件变动时自动就会处理索引的更新。但是对于使用vim+cscope的同学而言，就没那么方便了。</p>
 
-<p>试想一下，你正在修改代码，然后cscope找函数，发现由于修改更新了，找到的位置偏移了好几百行。。。这时候，退出再重新进入编辑。效率就极大降低了，<br />
+<p>试想一下，你正在修改代码，然后cscope找函数，发现由于修改更新了，找到的位置偏移了好几百行。。。这时候，退出再重新进入编辑。效率就极大降低了，
 违背了我们用工具提高看代码效率的初衷。</p>
 
-<h3 id="section-1">如何修改</h3>
+<h3 id="如何修改">如何修改</h3>
 
 <ul>
   <li>在<code class="highlighter-rouge">.vimrc</code>文件中添加下面函数。之后每次在阅读代码的同时就能直接按<code class="highlighter-rouge">F12</code>更新代码索引了</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 
 map &lt;F12&gt; : call ReConnectCscope<span class="o">()</span>&lt;cr&gt;
 func! ReConnectCscope<span class="o">()</span>
@@ -221,29 +221,27 @@ func! ReConnectCscope<span class="o">()</span>
 <span class="nb">exec</span> <span class="s2">"set csprg=~/cscope.sh"</span>
 <span class="nb">exec</span> <span class="s2">"cs add cscope.out"</span>
 endfunc
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>另附上面会用到的<code class="highlighter-rouge">generate.sh</code>, 之所以使用generate.sh, 是为了自行过滤一些文件。</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
-date;
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+date<span class="p">;</span>
 <span class="nb">echo</span> <span class="s2">"ctags done......"</span>
-find -L . -name  <span class="s2">"*.h"</span> -o -name <span class="s2">"*.c"</span> -o -name <span class="s2">"*.cc"</span> -o -name <span class="s2">"*.cpp"</span> -o -name <span class="s2">"*.py"</span> &gt; cscope.files;
-find -L . -name <span class="s2">"*.pl"</span> &gt;&gt;cscope.files
+find <span class="nt">-L</span> <span class="nb">.</span> <span class="nt">-name</span>  <span class="s2">"*.h"</span> <span class="nt">-o</span> <span class="nt">-name</span> <span class="s2">"*.c"</span> <span class="nt">-o</span> <span class="nt">-name</span> <span class="s2">"*.cc"</span> <span class="nt">-o</span> <span class="nt">-name</span> <span class="s2">"*.cpp"</span> <span class="nt">-o</span> <span class="nt">-name</span> <span class="s2">"*.py"</span> <span class="o">&gt;</span> cscope.files<span class="p">;</span>
+find <span class="nt">-L</span> <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.pl"</span> <span class="o">&gt;&gt;</span>cscope.files
 
-date;
-cscope -RCbq -i cscope.files;
-ctags -R -L cscope.files;
+date<span class="p">;</span>
+cscope <span class="nt">-RCbq</span> <span class="nt">-i</span> cscope.files<span class="p">;</span>
+ctags <span class="nt">-R</span> <span class="nt">-L</span> cscope.files<span class="p">;</span>
 <span class="nb">echo</span> <span class="s2">"cscope done......"</span>
-date;
+date<span class="p">;</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<h3 id="vimrc">使用vimrc文件定义快捷键执行更酷炫的操作</h3>
+<h3 id="使用vimrc文件定义快捷键执行更酷炫的操作">使用vimrc文件定义快捷键执行更酷炫的操作</h3>
 
 <ul>
   <li>作为一名工程师，经常会需要<code class="highlighter-rouge">ssh</code>远程连接到其他机器，这种情况下可能会有其他用户也在使用vim看代码，这时候如果我们轻易改变vim的配置，那么<code class="highlighter-rouge">.vimrc</code>很快就会被改得面目全非。所以问题来了： <strong>能不能定义一套配置，只有自己使用，其他人仍然使用默认的配置呢？</strong></li>
@@ -295,7 +293,7 @@ exec "set incsearch"
 endfunc
 </code></pre>
 
-<h3 id="cscope">如何使得cscope查找字符时不区分大小写</h3>
+<h3 id="如何使得cscope查找字符时不区分大小写">如何使得cscope查找字符时不区分大小写</h3>
 
 <p>通常情况下，我们查找函数定义时，需要提供精确的名字，但是我们很难记住一个字符串同时还记住它第几个字符是大小写。</p>
 
@@ -305,11 +303,10 @@ endfunc
   <li>首先我们在home目录<code class="highlighter-rouge">~</code>下创建一个脚本<code class="highlighter-rouge">cscope.sh</code>,并赋予执行权限</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#/!bin/sh
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#/!bin/sh
 
 cscope -C "$@"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>然后修改vimrc如下</li>
@@ -353,9 +350,9 @@ endif
                     
                     
                     <li class="next">
-                        <a href="/2019/04/01/TED-Talks-3-kinds-of-bias-that-shape-ypur-worldview/" data-toggle="tooltip" data-placement="top" title="塑造你世界观的三种原理">
+                        <a href="/2019/04/01/TED-Talks-3-kinds-of-bias-that-shape-ypur-worldview/" data-toggle="tooltip" data-placement="top" title="世界观出现偏差的三种原理">
                         Next<br>
-                        <span>塑造你世界观的三种原理</span>
+                        <span>世界观出现偏差的三种原理</span>
                         </a>
                     </li>
                     
@@ -430,8 +427,26 @@ endif
                             
         				
                             
-                				<a href="/tags/#TED" title="TED" rel="1">
+                				<a href="/tags/#TED" title="TED" rel="3">
                                     TED
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#vim" title="vim" rel="1">
+                                    vim
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随想" title="随想" rel="1">
+                                    随想
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技术" title="技术" rel="1">
+                                    技术
                                 </a>
                             
         				
